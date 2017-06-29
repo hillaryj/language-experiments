@@ -8,7 +8,30 @@ This also takes relative HTML paths and outputs absolute paths for links, css, a
 
 # Setup and run
 
-TBD.
+First, clone the repository
+
+Run via the command line to see example page ("Gladiola" Wikipedia page which outputs to `current-working-director/test.html`)
+
+    python pagetranslate.py
+
+Or, run inside a shell to be able to specify pages and locations. The function will return the output path to the gibberized file.
+
+    python
+    import pagetranslate
+    translatePage(pageurl="<pageurl>",
+                  outputpath="~/output-folder",
+                  outfile="test.html",
+                  titleid="firstHeading",
+                  bodyid="mw-content-text",
+                  percent=100)
+
+# Examples
+
+Gibberizing the "dog" Wikipedia page:
+![Dog turns into Sogh](https://github.com/hillaryj/language-experiments/blob/master/gibberizer-example-dog.png)
+
+Gibberizing the "Jeep Wagoneer" Wikipedia page:
+![Jeep Wagoneer turns into Bilner Wechwin](https://github.com/hillaryj/language-experiments/blob/master/gibberizer-example-wagoneer.png)
 
 # Limitations
 
@@ -20,6 +43,7 @@ This script does not translate/gibberize the following cases:
 
 # Future plans:
 
+- Add arguments to run via command line
 - Convert words with accented letters to unaccented equivalents or support accents
 - Gibberize individual letters of words with mixed letters and numbers (i.e. acronyms and initialisms)
 - Add arguments for whether to gibberize numbers and dates
