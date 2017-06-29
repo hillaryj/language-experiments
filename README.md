@@ -2,6 +2,8 @@
 
 Provides `translatePage` and other functions for generating word lists from input strings.
 
+The random seed is drawn from the page URL, so between script changes the same page will always be gibberized the same.
+
 The function `translatePage` comes configured for Wikipedia and has been tested with Wikipedia pages. The `translatePage` method has been set for Wikipedia pages in particular, but uses parameters so it can be applied to a page with a header (h1) and body div id; however this has not been extensively tested.
 
 This also takes relative HTML paths and outputs absolute paths for links, css, and images. This is so the generated page output looks like the source page as much as possible.
@@ -10,7 +12,7 @@ This also takes relative HTML paths and outputs absolute paths for links, css, a
 
 First, clone the repository
 
-Run via the command line to see example page ("Gladiola" Wikipedia page which outputs to `current-working-director/test.html`)
+Run via the command line to see example page ("Gladiola" Wikipedia page which outputs to `current-working-directory/test.html`)
 
     python pagetranslate.py
 
@@ -26,6 +28,8 @@ Or, run inside a shell to be able to specify pages and locations. The function w
                   percent=100)
 
 # Examples
+
+Original page is on the left and gibberized page is on the right.
 
 Gibberizing the "dog" Wikipedia page:
 ![Dog turns into Sogh](https://github.com/hillaryj/language-experiments/blob/master/gibberizer-example-dog.png)
