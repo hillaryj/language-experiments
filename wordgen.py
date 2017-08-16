@@ -105,11 +105,11 @@ def word(n=1, weighted=DEFAULT_WEIGHT):
     if n <= 0:
         n = 1
 
-    w = []
+    wordparts = []
     for kk in range(n):
-        w.append(syllCVC(weighted))
+        wordparts.append(syllCVC(weighted))
 
-    return wordformat(w)
+    return wordformat(wordparts)
 
 
 # Utility functions for word manipulation
@@ -135,11 +135,11 @@ def wordformat(syllables, delim=""):
     return delim.join(ws)
 
 
-def transliterate(ph):
+def transliterate(phoneme):
     """Performs transliteration of a syllable string for readability
     and pronounceability for English speakers/readers"""
-    if ph in translation:
-        return translation[ph]
+    if phoneme in syll.translation:
+        return syll.translation[phoneme]
 
 
 # Utility functions for multi-words e.g. command line interfacing etc.
@@ -153,11 +153,11 @@ def wordlist(n=10, minsyllables=1, maxsyllables=3):
 
     Returns a list of strings
     """
-    p = []
+    words = []
     for kk in range(n):
-        p.append(word(random.randint(minsyllables, maxsyllables)))
+        words.append(word(random.randint(minsyllables, maxsyllables)))
 
-    return p
+    return words
 
 
 def sentenceformat(words=None, delim=" "):
@@ -169,11 +169,11 @@ def sentenceformat(words=None, delim=" "):
             If 'None', will generate a new list of words using default options.
     delim - Delimiter to use between words (default:" ")
     """
-    if pp is None:
-        pp = wordlist()
+    if words is None:
+        words = wordlist()
 
     # Join the words together into a sentence
-    txt = delim.join(pp)
+    txt = delim.join(words)
 
     # Future upgrade: add commas inside sentences of sufficient length
 

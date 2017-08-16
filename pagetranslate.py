@@ -26,20 +26,21 @@ Other future plans:
 """
 
 # Python library imports
-import urllib2
-from urlparse import urlparse
-from bs4 import BeautifulSoup, SoupStrainer
-import random
-import string
-import re
+from beautifulsoup4 import BeautifulSoup, SoupStrainer
+import logging
 import os
+import random
+import re
+import string
+import urllib2
+
 
 # Local imports
 import wordgen
 
 
 __author__ = "Hillary Jeffrey"
-__copyright__ = "Copyright 2015"
+__copyright__ = "Copyright 2017"
 __credits__ = ["Hillary Jeffrey"]
 __license__ = "GPL"
 __version__ = "1.0"
@@ -62,11 +63,12 @@ NUMERIC = "num"
 LETTER = "letter"
 ALPHA = "alpha"
 
-CAP_TYPES = {LOWER: string.lower,  # A standard, lower-case word
-             TITLE: string.capitalize,  # Initial capital - a title-case word
-             UPPER: string.upper,  # All-caps - an uppercase word
-             NUMERIC: string.upper,  # A number or word that contains numbers
-             }
+CAP_TYPES = {
+    LOWER: string.lower,  # A standard, lower-case word
+    TITLE: string.capitalize,  # Initial capital - a title-case word
+    UPPER: string.upper,  # All-caps - an uppercase word
+    NUMERIC: string.upper,  # A number or word that contains numbers
+}
 
 # Set up regular expression for removing punctuation for parsing words
 punctregex = re.compile('[%s]' % re.escape(string.punctuation))
@@ -75,14 +77,18 @@ numregex = re.compile('[0-9]')
 capregex = re.compile('[A-Z]')
 vowelregex = re.compile('[aoeui]')
 
+# Set up logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
-def translatePage(pageurl=DEFAULT_TEST_PAGE,
-                 outputpath=DEFAULT_OUTPUT_PATH,
-                 outfile=DEFAULT_OUTFILE_NAME,
-                 titleid=WIKI_TITLE_ID,
-                 bodyid=WIKI_BODY_ID,
-                 percent=100
-                 ):
+
+def translatePage(
+        pageurl=DEFAULT_TEST_PAGE,
+        outputpath=DEFAULT_OUTPUT_PATH,
+        outfile=DEFAULT_OUTFILE_NAME,
+        titleid=WIKI_TITLE_ID,
+        bodyid=WIKI_BODY_ID,
+        percent=100):
     """
     Loads a given URL and scrambles the page's header and bodytext contents.
     Defaults are set for Wikipedia pages.
@@ -144,9 +150,12 @@ def translatePage(pageurl=DEFAULT_TEST_PAGE,
         bodytext = div.get_text().encode('utf-8')
         # bodytext = soup.div.get_text().encode('utf-8')
     except Exception, e:
-        print str(e)
-        print len(div.contents)
-        # print len(soup.div.contents)
+        logging.error(
+            "Unexpected error: {}\nDiv contained {} elements.".format(
+                str(e),
+                len(div.contents)
+            )
+        )
         raise e
 
     # Now process the text into words - must include page title
@@ -229,10 +238,10 @@ def regexWordMatch(match, wordlist):
     matchcase = findCapsType(matchtxt)
 
     if matchkey in wordlist:
-        # print "Matched word: ", matchkey
+        logging.debug("Matched word '{}'".format(matchkey))
         return CAP_TYPES[matchcase](wordlist[matchkey]['rep'])
     else:
-        # print "No match: ", matchkey
+        logging.debug("No match found for '{}'".format(matchkey))
         return matchtxt
 
 
@@ -340,7 +349,7 @@ def alterString(inputstring, wordlist):
 
     for kk in range(len(newstr)):
         words = punctregex.sub(' ', newstr[kk].strip()).split()
-        # print repr(words)
+        logging.debug("Word list:\n{}".format(repr(words)))
         for word in words:
             if word in wordlist:
                 rep = wordlist[word]['rep']
@@ -348,7 +357,92 @@ def alterString(inputstring, wordlist):
 
     return " ".join(newstr)
 
-if __name__ is "__main__":
+
+if __name__ == "__main__":
     # FUTURE: Handle or prompt for keyword arguments
-    outfile = translatePage()
-    print "Page scrambled! Output is at:\n", outfile
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='Takes a page and turns all its words into ' +
+                    'internally-consistent gibberish.'
+    )
+
+    parser.add_argument(
+        '-url',
+        '--page-url',
+        default=DEFAULT_TEST_PAGE,
+        type=str,
+        dest='pageurl',
+        help='URL of page to be gibberized ' +
+             '(Default: https://en.wikipedia.org/wiki/Gladiola)'
+    )
+    parser.add_argument(
+        '-path',
+        '--output-path',
+        default=DEFAULT_OUTPUT_PATH,
+        type=str,
+        dest='outputpath',
+        help='Output path (Default: current directory)'
+    )
+    parser.add_argument(
+        '-file',
+        '--output-file',
+        default=DEFAULT_OUTFILE_NAME,
+        type=str,
+        dest='outputfile',
+        help='Output filename (Default: "test.html")'
+    )
+    # FUTURE IDEA: Support a few known sites and select title/body pair
+    parser.add_argument(
+        '-titleid',
+        default=WIKI_TITLE_ID,
+        type=str,
+        dest='titleid',
+        help='Title HTML element ID to gibberize ' +
+             '(Default: Wikipedia: "firstHeading")'
+    )
+    parser.add_argument(
+        '-bodyid',
+        default=WIKI_BODY_ID,
+        type=str,
+        dest='bodyid',
+        help='Body HTML element ID to gibberize ' +
+             '(Default: Wikipedia: "mw-content-text")'
+    )
+    parser.add_argument(
+        '-pct',
+        '--percent-gibberize',
+        default=100,
+        type=int,
+        dest='percent',
+        help='(FUTURE)Percentage of words to change. (Default: 100)'
+    )
+    parser.add_argument(
+        '--convert-numbers',
+        action='store_true',
+        dest='convert_numbers',
+        help='(FUTURE)Set to gibberize numbers. (Default: False)'
+    )
+    parser.add_argument(
+        '--convert-dates',
+        action='store_true',
+        dest='convert_dates',
+        help='(FUTURE)Set to gibberize dates. (Default: False)'
+    )
+
+    args = parser.parse_args()
+
+    # Perform gibberizing
+    logging.debug(
+        "Translating page with specified arguments:\n{}".format(args)
+    )
+    outfile = translatePage(
+        pageurl=args.pageurl,
+        outputpath=args.outputpath,
+        outfile=args.outputfile,
+        titleid=args.titleid,
+        bodyid=args.bodyid,
+        # percent=args.percent
+        percent=100
+    )
+
+    logging.info("Page scrambled! Output is at:\n{}".format(outfile))

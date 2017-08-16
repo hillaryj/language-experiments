@@ -12,9 +12,27 @@ This also takes relative HTML paths and outputs absolute paths for links, css, a
 
 First, clone the repository
 
-Run via the command line to see example page ("Gladiola" Wikipedia page which outputs to `current-working-directory/test.html`)
+Run via the command line to see example page ("Gladiola" Wikipedia page which outputs to `current-working-directory/test.html`) or specify other options via arguments.
 
     python pagetranslate.py
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -url PAGEURL, --page-url PAGEURL
+                            URL of page to be gibberized (Default:
+                            https://en.wikipedia.org/wiki/Gladiola)
+      -path OUTPUTPATH, --output-path OUTPUTPATH
+                            Output path (Default: current directory)
+      -file OUTPUTFILE, --output-file OUTPUTFILE
+                            Output filename (Default: "test.html")
+      -titleid TITLEID      Title HTML element ID to gibberize (Default:
+                            Wikipedia: "firstHeading")
+      -bodyid BODYID        Body HTML element ID to gibberize (Default: Wikipedia:
+                            "mw-content-text")
+      -pct PERCENT, --percent-gibberize PERCENT
+                            (FUTURE)Percentage of words to change. (Default: 100)
+      --convert-numbers     (FUTURE)Set to gibberize numbers. (Default: False)
+      --convert-dates       (FUTURE)Set to gibberize dates. (Default: False)
 
 Or, run inside a shell to be able to specify pages and locations. The function will return the output path to the gibberized file.
 
@@ -47,9 +65,8 @@ This script does not translate/gibberize the following cases:
 
 # Future plans:
 
-- Add arguments to run via command line
 - Convert words with accented letters to unaccented equivalents or support accents
 - Gibberize individual letters of words with mixed letters and numbers (i.e. acronyms and initialisms)
-- Add arguments for whether to gibberize numbers and dates
-- Allow certain percentages of words to be left un-gibberized, e.g Leave shortest words first like `a`, `the`, `and` to make the text somewhat recognizable
+- Implement options for whether to gibberize numbers and dates
+- Implement option for certain percentages of words to be left un-gibberized, e.g Leave shortest words first like `a`, `the`, `and` to make the text somewhat recognizable
 - Expand to detect suffixes/prefixes so root words are gibberized consistently

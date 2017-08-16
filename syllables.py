@@ -128,6 +128,7 @@ def buildWeightedSets(inputdict):
 
     return weightedSet
 
+
 # Build access lists of weighted sets for each dictionary
 end_weighted = buildWeightedSets(end_consonants)
 onset_weighted = buildWeightedSets(onset_consonants)
