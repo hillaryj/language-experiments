@@ -1,4 +1,4 @@
-# language-experiments
+# What is `language-experiments`?
 
 Provides `translatePage` and other functions for generating word lists from input strings.
 
