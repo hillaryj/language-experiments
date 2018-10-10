@@ -4,7 +4,6 @@ This repository contains Python2-based language experimentation which, as a whol
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/context:python)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/context:python)
 
 ## Specifics
 
