@@ -328,7 +328,7 @@ def countVowels(word):
     numvowels = len(re.findall(vowelregex, word))
 
     if numvowels > 2:
-        numvowels = numvowels / 2
+        numvowels = int(numvowels) / 2
 
     return numvowels
 

@@ -1,4 +1,12 @@
-# What is `language-experiments`?
+# What is `language-experiments`? 
+
+This repository contains Python2-based language experimentation which, as a whole, will turn a Wikipedia page into reasonable-looking gibberish.
+
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/context:python)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/context:python)
+
+## Specifics
 
 Provides `translatePage` and other functions for generating word lists from input strings.
 
@@ -14,7 +22,7 @@ First, clone the repository
 
 Run via the command line to see example page ("Gladiola" Wikipedia page which outputs to `current-working-directory/test.html`) or specify other options via arguments.
 
-    python pagetranslate.py
+    python2 pagetranslate.py
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -36,7 +44,7 @@ Run via the command line to see example page ("Gladiola" Wikipedia page which ou
 
 Or, run inside a shell to be able to specify pages and locations. The function will return the output path to the gibberized file.
 
-    python
+    python2
     import pagetranslate
     translatePage(pageurl="<pageurl>",
                   outputpath="~/output-folder",
@@ -63,7 +71,7 @@ This script does not translate/gibberize the following cases:
 - Words with mixed letters/numbers (i.e. acronyms)
 - Numerics e.g. dates
 
-# Future plans:
+# Ideas for expansion
 
 - Convert words with accented letters to unaccented equivalents or support accents
 - Gibberize individual letters of words with mixed letters and numbers (i.e. acronyms and initialisms)
