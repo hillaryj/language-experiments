@@ -37,7 +37,6 @@ translation = {
     'zh': 'j',
     'ng': 'nge',
     'v': 've',
-    'ng': 'nge',
 }
 
 # Onset consonants begin CVC syllables
