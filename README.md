@@ -1,4 +1,4 @@
-# What is `language-experiments`? [![Total alerts](https://img.shields.io/lgtm/alerts/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/alerts/) [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hillaryj/language-experiments.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hillaryj/language-experiments/context:python)
+# What is `language-experiments`? [![Known Vulnerabilities](https://snyk.io//test/github/hillaryj/language-experiments/badge.svg?targetFile=requirements.txt)](https://snyk.io//test/github/hillaryj/language-experiments?targetFile=requirements.txt)
 
 Python2-based string/language experimentation which, as a whole, will turn a Wikipedia page into reasonable-looking gibberish.
 
